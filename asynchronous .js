@@ -13,7 +13,7 @@ function findSumTill100(){
 //busy waiting
 function syncSleep(){
     let a=1;
-    for(let i=0;i<10000000000;i++){
+    for(let i=0;i<100000;i++){
         a++;
     }
 }

@@ -5,18 +5,20 @@ const app=express();
 
 app.use(bodyparser.json());
 
-// app.get("/route-handler",function(req,res){
-//     res.json({
-//         name:"harkirat",
-//         age:21
-//     })
-// })
+app.get("/route-handler",function(req,res){
+    res.json({
+        name:"harkirat",
+        age:21
+    })
+})
 
-// app.get('/',function(req,res){
-    // res.send('<b>Hello World!<b>')
-// })
+app.get('/',function(req,res){
+    res.send('<b>Hello World!<b>')
+})
 app.post('/conversations',(req,res)=>{
-    console.log(req.body);
+    // console.log(req.body);
+    const message = req.body.message
+    console.log(message)
     
     console.log(req.headers)
     // res.send('<b>hi there<b>')
@@ -25,7 +27,7 @@ app.post('/conversations',(req,res)=>{
     })
 })
 app.listen(port,function(){
-    console.log(`Example app listening on port ${port}`);   
+    console.log(`Example app listening on port ${port}`);
 })
 
     
