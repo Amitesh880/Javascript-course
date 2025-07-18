@@ -1,5 +1,9 @@
 const jwt = require('jsonwebtoken');
 const jwtPassword = 'secret';
+const zod = require("zod");
+
+const emailSchema = zod.string().email();
+const passwordSchema = zod.string().min(6);
 
 
 /**
@@ -14,8 +18,19 @@ const jwtPassword = 'secret';
  *                        the password does not meet the length requirement.
  */
 function signJwt(username, password) {
-    // Your code here
+    const usernameResponse = emailSchema.safeParse(username);
+    const passwordResponse = passwordSchema.safeParse(password);
+    if (!usernameResponse.success || !passwordResponse.success) {
+        return null;
+    }
+    const signature = jwt.sign({
+        username
+    }, jwtPassword);
+
+    return signature;
 }
+const ans = signJwt("amitesh@gmail.com", "addchg");
+console.log(ans);
 
 /**
  * Verifies a JWT using a secret key.
@@ -26,8 +41,16 @@ function signJwt(username, password) {
  *                    using the secret key.
  */
 function verifyJwt(token) {
-    // Your code here
+    let ans = true;
+    try{
+         const verify = jwt.verify(token, jwtPassword);
+    }catch(e){
+        ans = false
+    }
+    return ans;
 }
+
+console.log(verifyJwt("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFtaXRlc2hAZ21haWwuY29tIiwiaWF0IjoxNzUxMDU5MzUzfQ.MMepeUzU6lU-zm5nhwvHMNI8NAu3vzlSzL_eDq61q98"))
 
 /**
  * Decodes a JWT to reveal its payload without verifying its authenticity.
@@ -37,13 +60,19 @@ function verifyJwt(token) {
  *                         Returns false if the token is not a valid JWT format.
  */
 function decodeJwt(token) {
-    // Your code here
+    const decoded = jwt.decode(token);
+    if (decoded) {
+        return true;
+    } else {
+        return false;
+    }
 }
+console.log(decodeJwt("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFtaXRlc2hAZ21haWwuY29tIiwiaWF0IjoxNzUxMDU4OTMyfQ.VD0caoXsh1Fp7KZfJxzZ4NbZShiLs-QTS6rTOKH1HNY"))
 
 
 module.exports = {
-  signJwt,
-  verifyJwt,
-  decodeJwt,
-  jwtPassword,
+    signJwt,
+    verifyJwt,
+    decodeJwt,
+    jwtPassword,
 };

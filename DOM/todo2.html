@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input id="title" type="text" placeholder="title"> <br>
+        <input id="description" type="text" placeholder="description"> <br>
+        <button onclick="addTodo()">Add todo</button>
+        <div id="container"></div>
+    </div>
+</body>
+<script>
+
+    function createchild(title,description,id) {
+        const child = document.createElement("div");
+        const firstgrandchild = document.createElement("div")
+        firstgrandchild.innerHTML=title;
+        const secondgrandchild = document.createElement("div")
+        secondgrandchild.innerHTML=description;
+        const thirdgrandchild = document.createElement("button")
+        thirdgrandchild.innerHTML= "Mark as done"
+        thirdgrandchild.setAttribute("onclick", `marksAsdone(${id})`);
+        child.appendChild(firstgrandchild);
+        child.appendChild(secondgrandchild);
+        child.appendChild(thirdgrandchild);
+        child.setAttribute("id", id);
+        return child;
+    }
+
+    function updateDomAccToState(state){
+       const parent= document.getElementById("container");
+       parent.innerHTML= "";
+        for (let i = 0; i < state.length; i++) {
+            const child = createchild(state[i].title,state[i].description,state[i].id);
+            parent.appendChild(child);
+            
+        }
+    }
+
+    window.setInterval(async function () {
+        const res = await fetch("http://localhost:3000/todos");
+        const json = await res.json();
+        updateDomAccToState(json.todos);
+    },5000)
+//   updateDomAccToState([{
+//     title:"go to gym",
+//     description:"go to gym from 5-7pm",
+//     id:1
+//   },
+//  {
+//     title:"go to gym2",
+//     description:"go to gym from 5-7pm",
+//     id:1
+//   }])
+
+</script>
+</html>

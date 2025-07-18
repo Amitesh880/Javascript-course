@@ -6,7 +6,7 @@ function adminMiddleware(req, res, next) {
     const token = req.headers.authorization; // bearer token
     const words = token.split(" "); // ["Bearer", "token"]
     const jwtToken = words[1]; // token
-    try {
+    try { 
         const decodedValue = jwt.verify(jwtToken, JWT_SECRET);
         if (decodedValue.username) {
             next();

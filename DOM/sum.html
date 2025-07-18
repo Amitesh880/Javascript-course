@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form >
+        a: <br>
+        <input oninput="debouncingsum()" type="text" id="a" placeholder="value1"> <br>
+        b: <br>
+        <input oninput="debouncingsum()" type="text" id="b" placeholder="value2"> <br>
+        <!-- <button onclick="sum(event)">Calculate sum</button> -->
+    </form>
+    <div id="finalsum"></div>
+</body>
+<script>
+    let timeout;
+    function debouncingsum() {
+         //how to ccancel a clock
+        clearTimeout(timeout);
+        //delay the call to sum() until i have not been called for 100ms
+        //and i've been called atleast once
+       timeout = setTimeout(() => {
+            sum();
+        }, 1000);
+       
+
+    }
+    function sum() {
+         const a = document.getElementById("a").value
+         const b = document.getElementById("b").value
+         //by frontend
+    // const element =  document.getElementById("finalsum")
+    // element.innerHTML = parseInt(a)+parseInt(b);
+
+    //by backend
+    fetch("http://localhost:3000/sum?a="+ a +"&b=" + b)
+    .then(function (response) {
+        console.log(response);
+        response.text()
+        .then(function(ans){
+            document.getElementById("finalsum").innerHTML = ans;
+        })
+    })
+    }
+    // async function sum() {
+    //      const a = document.getElementById("a").value
+    //      const b = document.getElementById("b").value
+    //      const response = await fetch("http://localhost:3000/sum?a="+ a +"&b=" + b)
+    //      const ans = await response.text();
+    //      document.getElementById("finalsum").innerHTML = ans;
+    // }
+</script>
+</html>
