@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "target": "esnext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": true,
+    "strict": true,
+    "types": ["node"],
+    "lib": ["esnext"]
+  },
+  "ts-node": {
+    "esm": true
+  }
+}
