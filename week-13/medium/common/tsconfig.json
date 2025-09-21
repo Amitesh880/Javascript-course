@@ -1,0 +1,48 @@
+{
+  // Learn more: https://aka.ms/tsconfig
+  "compilerOptions": {
+    /* File Layout */
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* Language and Environment */
+    "target": "ESNext",
+    "module": "NodeNext",
+    "lib": ["ESNext", "DOM"],
+    "jsx": "react-jsx",
+    "moduleResolution": "NodeNext",
+    "types": ["node"],
+
+    /* Output Options */
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    /* Type Checking */
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "skipLibCheck": true,
+
+    /* Module Behavior */
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    // "verbatimModuleSyntax": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+
+    /* Style and Clean Code */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+
+    /* Experimental */
+    "noUncheckedSideEffectImports": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
